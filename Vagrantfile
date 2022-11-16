@@ -68,8 +68,10 @@ Vagrant.configure("2") do |config|
 	      mkdir -p ~root/.ssh
 	      dnf install -y git mdadm smartmontools hdparm gdisk
               bash /home/vagrant/files/script.sh
-  	  SHELL
-
+              runuser vagrant -c sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+              sed -i 's|vagrant:x:1000:1000::/home/vagrant:/bin/bash|vagrant:x:1000:1000::/home/vagrant:/bin/zsh|' /etc/passwd
+              sed -i 's|ZSH_THEME="robbyrussell"|ZSH_THEME="daveverwer"|' /home/vagrant/.zshrc 
+          SHELL
       end
   end
 end
